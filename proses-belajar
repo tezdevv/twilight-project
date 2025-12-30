@@ -1,0 +1,25 @@
+A. HUMANOID ROBOT
+robot dengan bentuk tubuh mirip manusia dengan dua kaki, dua tangan, dan badan yang dirancang untuk beroperasi di lingkungan manusia
+tujuan utama robot humanoid untuk beroperasi pada lingkungan yang sudah ada, mengoperasikan alat-alat manusia, dan berinteraksi
+
+B. SEJARAH HUMANOID
+->  WABOT-1 (1973, Waseda University)
+    Robot humanoid pertama: bisa melihat, berbicara, berjalan
+->  WABOT-2 (1984)
+    Bisa bermain piano
+->  Honda P2 (1996)
+    Revolusi humanoid → bipedal stabil + komputer onboard
+->  ASIMO (2000)
+    Humanoid komersial paling terkenal
+->  HRP Series (AIST Jepang)
+    Fokus riset humanoid industri dan penelitian
+
+C. STRUKTUR DASAR ROBOT HUMANOID
+->  Link
+    Bagian tubuh seperti paha, betis, lengan
+->  Join
+    Bagian rotasi (sendi)
+->  Sensor
+    Orientasi tubuh dengan gyro, penglihatan
+->  Controller
+    Komputer yang mengendalikan layaknya otak
