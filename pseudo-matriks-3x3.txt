@@ -1,5 +1,6 @@
 Buat program operasi matriks 3x3 yang dapat menghitung penjumlahan, pengurangan, dan perkalian
 
+diketahui 3 mode ->
 mode = +, -, x;
 
 //operasi A (mode) B = C
