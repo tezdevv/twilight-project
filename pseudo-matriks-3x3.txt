@@ -1,0 +1,36 @@
+Buat program operasi matriks 3x3 yang dapat menghitung penjumlahan, pengurangan, dan perkalian
+
+mode = +, -, x;
+
+//operasi A (mode) B = C
+//operasi A +/- B = C -> (M x M) +/- (M x M) = (M x M)
+//operasi A x B = C -> (M x M) x (M x M) = (M x M)
+
+int A [M][M];
+int B [M][M];
+int C [M][M];
+
+//operasi +/-
+a11 a12 a13	b11 b12 b13	a11 + b11	a12 + b12	a13 + b13
+a21 a22 a23 +/- b21 b22 b23 = 	a21 + b21	a22 + b22	a23 + b23
+a31 a32 a33	b31 b22 b33	a31 + b31	a32 + b32	a33 + b33
+
+i = M
+j = M
+
+C[i][j] = A[i][j] +/- B[i][j]
+
+//operasi x
+a11 a12 a13	b11 b12 b13	(a11 x b11) + (a12 x b21) + (a13 x b31)		(a11 x b12) + (a12 x b22) + (a13 x b32)		(a11 x b13) + (a12 x b23) + (a13 x b33)
+a21 a22 a23  x  b21 b22 b23 = 	(a21 x b11) + (a22 x b21) + (a23 x b31)		(a21 x b12) + (a22 x b22) + (a23 x b32)		(a21 x b13) + (a22 x b23) + (a23 x b33)
+a31 a32 a33	b31 b32 b33	(a31 x b11) + (a32 x b21) + (a33 x b31)		(a31 x b12) + (a32 x b22) + (a33 x b32)		(a31 x b13) + (a32 x b23) + (a33 x b33)
+
+asumsikan L = M = N
+
+A[N][M] x B[M][L] = C[N][L]
+
+i = N
+j = L
+k = M
+
+C[i][j] += A[i][k] x B[k][j]
