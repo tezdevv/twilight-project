@@ -2,8 +2,8 @@
 
 1. Algoritma sederhana dalam membangun kecerdasan ialah dibuat dengan feedback value sebagai parameter pembelajaran.
 2. Markov Decision Proess ( Memutuskan tindakan selanjutnya berdasarkan data)
-
-#UMUM
+    MDP memiliki 5 faktor : state, action, transition, reward, policy
+#UMUM 
 
 A. HUMANOID ROBOT
 robot dengan bentuk tubuh mirip manusia dengan dua kaki, dua tangan, dan badan yang dirancang untuk beroperasi di lingkungan manusia
