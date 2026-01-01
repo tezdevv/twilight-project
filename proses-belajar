@@ -1,6 +1,7 @@
 #KHUSUS
 
 1. Algoritma sederhana dalam membangun kecerdasan ialah dibuat dengan feedback value sebagai parameter pembelajaran.
+2. Markov Decision Proess ( Memutuskan tindakan selanjutnya berdasarkan data)
 
 #UMUM
 
