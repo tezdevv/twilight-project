@@ -1,0 +1,40 @@
+pseudo lengan 3 DOF
+
+//diketahui
+1. diketahui target(x, y, z)
+2. diketahui panjang(l1, l2, l3)
+3. diketahui derajat(o1, o2, o3)
+
+//ditanya
+1. berapa kombinasi derajat(o1, o2, o3) agar mendapatkan nilai target(x, y, z) yang sesuai?
+
+//dijawab
+1. memberi beberapa kondisi pilihan utama untuk brute force(menghemat Waktu)
+2. brute force dari min_predict_oN sampai max_predict_oN
+3. jika sudah didapatkan nilai yang benar maka perbarui derajat(o1, o2, o3)
+4. menggerakkan servo dari s1 -> s2 -> s3
+5. selesai
+
+//Batasan
+1. d > l1 + l2 + l3 -> cancle
+2. d < |l1 - l2 - l3| -> cancle
+
+1. derajat kuadran 1 maka lekukan berlawanan arah jam  >0 ~ >=90
+2. derajat kuadran 2 maka lekukan searah jarum jam >90 ~ <=180
+
+1️⃣ Hadapkan robot ke target
+2️⃣ Ubah masalah jadi 2D
+3️⃣ Buang target yang mustahil
+4️⃣ Coba sudut besar dulu
+5️⃣ Pilih yang paling dekat
+6️⃣ Haluskan sedikit
+7️⃣ Selesai
+
+float x = 3.0;
+float y = 3.0;
+
+float theta_rad = atan2(y, x);      // hasil RADIAN
+float theta_deg = degrees(theta_rad); // ubah ke DERAJAT
+
+maximal -> t == l1 + l2 + l3 -> tinggal main derajat;
+minimal -> t == tekukan terkecil yang didapatkan -> tinggal main derajat;
