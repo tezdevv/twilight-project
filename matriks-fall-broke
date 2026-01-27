@@ -1,0 +1,62 @@
+#include <iostream>
+
+int a[3][3] = {
+    {1, 1, 1},
+    {0, 0, 1},
+    {1, 1, 1}
+};
+
+int jumlah_sama = 3;
+int jumlah_now = 0;
+int broke = 0;
+int run = 1;
+
+int main() {
+    
+    while (run == 1) {
+        if (broke > 0) {
+            broke -= 1;
+        }
+        
+        for (int i = 2; i >= 0; i--) {
+            for (int j = 0; j < 3; j++) {
+                if (i <= 1 && a[i + 1][j] == 0) {
+                    a[i + 1][j] = a[i][j];
+                    a[i][j] = 0;
+                }
+            }
+        }
+        
+        
+        for (int i = 2; i >= 0; i--) {
+            for (int j = 0; j < 3; j++) {
+                if (a[i][j] == 1) {
+                    jumlah_now += 1;
+                }
+            }
+            if (jumlah_now == jumlah_sama) {
+                for (int z = 0; z < 3; z++) {
+                    a[i][z] = 0;
+                }
+                broke += 1;
+                jumlah_now = 0;
+            } else {
+                jumlah_now = 0;
+            }
+        }
+        
+        if (broke == 0) {
+            break;
+        }
+    }
+        
+    
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            std::cout << a[i][j];
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
