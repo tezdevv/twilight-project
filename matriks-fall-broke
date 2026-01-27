@@ -1,26 +1,98 @@
 #include <iostream>
 
-int a[3][3] = {
-    {1, 1, 1},
-    {0, 0, 1},
-    {1, 1, 1}
-};
-
-int jumlah_sama = 3;
-int jumlah_now = 0;
-int broke = 0;
-int run = 1;
-
 int main() {
+    int R;
+    int C;
+    
+    std::cin >> R;
+    std::cin >> C;
+    int a[R][C];
+    
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            std::cin >> a[i][j];
+        }
+    }
+    
+    int n_same = 0;
+    int broke = 0;
+    int gnd = 0;
+    int run = 1;
+    int first_check = 1;
+    
     
     while (run == 1) {
         if (broke > 0) {
             broke -= 1;
         }
         
-        for (int i = 2; i >= 0; i--) {
-            for (int j = 0; j < 3; j++) {
-                if (i <= 1 && a[i + 1][j] == 0) {
+        if (first_check == 1) {
+            for (int i = R - 1; i >= 0; i--) {
+                for(int j = 0; j < C; j++) {
+                    if (a[i][j] == 1) {
+                        n_same += 1;
+                    }
+                }
+                if (n_same == C) {
+                    for (int z = 0; z < C; z++) {
+                        a[i][z] = 0;
+                    }
+                    gnd = i;
+                    n_same = 0;
+                    break;
+                } else {
+                    n_same = 0;
+                }
+            }
+        }
+        
+        for (int i = gnd - 1; i >= 0; i--) {
+            for (int j = 0; j < C; j++) {
+                if (a[i + 1][j] == 0) {
+                    a[i + 1][j] = a[i][j];
+                    a[i][j] = 0;
+                } 
+            }
+        }
+        
+        
+        for(int i = gnd; i >= 0; i--) {
+            for(int j = 0; j < C; j++) {
+                if (a[i][j] == 1) {
+                    n_same += 1;
+                }
+            }
+            if (n_same == C) {
+                for (int z = 0; z < C; z++) {
+                    a[i][z] = 0;
+                }
+                broke += 1;
+                n_same = 0;
+            } else {
+                n_same = 0;
+            }
+        }
+        
+        // std::cout<< "h";
+        
+        if (broke == 0) {
+            
+            break;
+        }
+        
+        
+        first_check = 0;
+    }
+    
+    //jatuh semua
+    while (run == 1) {
+        if (broke > 0) {
+            broke -= 1;
+        }
+        
+        for (int i = R - 1; i >= 0; i--) {
+            for (int j = 0; j < C; j++) {
+                if (i <= R - 2 && a[i + 1][j] == 0) {
                     a[i + 1][j] = a[i][j];
                     a[i][j] = 0;
                 }
@@ -28,30 +100,41 @@ int main() {
         }
         
         
-        for (int i = 2; i >= 0; i--) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = R - 1; i >= 0; i--) {
+            for (int j = 0; j < C; j++) {
                 if (a[i][j] == 1) {
-                    jumlah_now += 1;
+                    n_same += 1;
                 }
             }
-            if (jumlah_now == jumlah_sama) {
-                for (int z = 0; z < 3; z++) {
+            if (n_same == C) {
+                for (int z = 0; z < C; z++) {
                     a[i][z] = 0;
                 }
-                broke += 1;
-                jumlah_now = 0;
+                n_same = 0;
             } else {
-                jumlah_now = 0;
+                n_same = 0;
             }
         }
+        
+        for (int i = R - 1; i >= 0; i--) {
+            for (int j = 0; j < C; j++) {
+                if (i > 0 && a[i][j] == 0 && a[i-1][j] == 1) {
+                    broke += 1;
+                    // std::cout<<"k";
+                    break;
+                }
+            }
+        }
+        
+        // std::cout << 'a';
         
         if (broke == 0) {
             break;
         }
     }
-        
     
-    for (int i = 0; i < 3; i++) {
+    
+    for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 3; j++) {
             std::cout << a[i][j];
         }
