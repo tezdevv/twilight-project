@@ -1,145 +1,141 @@
 #include <iostream>
+#include <vector>
+using namespace std;
+
+bool clearBlock(vector<vector<int>> &a, int R, int C) {
+    bool clear = true;
+    
+    for (int i = R - 1; i >= 0; i--) {
+        bool clearLine = false;
+        for (int j = 0; j < C; j++) {
+            if (a[i][j] != 1) {
+                clearLine = true;
+                break;
+            }
+        }
+        
+        if (!clearLine) {
+            for (int k = 0; k < C; k++) {
+                a[i][k] = 0;
+            }
+            clear = false;
+        }
+    }
+    
+    return clear;
+}
+
+bool fallBlock(vector<vector<int>> &a, int R, int C) {
+    bool clear = true;
+    
+    for (int j = 0; j < C; j++) {
+        for (int i = R - 2; i >= 0; i--) {
+            while (i + 1 < R && a[i][j] == 1 && a[i + 1][j] == 0) {
+                a[i][j] = 0;
+                a[i + 1][j] = 1;
+                i++;
+                clear = false;
+            }
+        }
+    }
+    
+    return clear;
+}
 
 int main() {
-    int R;
-    int C;
+    int R, C;
+    cin >> R >> C;
+    int gnd = R;
     
-    std::cin >> R;
-    std::cin >> C;
-    int a[R][C];
+    vector<vector<int>> block(R, vector<int>(C));
+    vector<vector<int>> blockCrash(R, vector<int>(C));
+    
+    // for (int i = 0; i < R; i++) {
+    //     for (int j = 0; j < C; j++) {
+    //         cin >> block[i][j];
+    //     }
+    // }
+    
+    for (int i = 0; i < R; i++) {
+        string s;
+        cin >> s;
+        for (int j = 0; j < C; j++) {
+            block[i][j] = s[j] - '0';
+        }
+    }
+    
+    for (int i = R - 1; i >= 0; i--) {
+        bool crash = true;
+        for (int j = 0; j < C; j++) {
+            if (block[i][j] == 0) {
+                crash = false;
+                break;
+            }
+        }
+        
+        if (crash) {
+            gnd = i + 1;
+            break;
+        }
+    }
+    
+    for (int i = 0; i < gnd; i++) {
+        for (int j = 0; j < C; j++) {
+            blockCrash[i][j] = block[i][j];
+        }
+    }
     
     for (int i = 0; i < R; i++) {
         for (int j = 0; j < C; j++) {
-            std::cin >> a[i][j];
+            if (block[i][j] == 1 && i >= gnd) {
+                block[i][j] = 2;
+            }
         }
     }
     
-    int n_same = 0;
-    int broke = 0;
-    int gnd = 0;
-    int run = 1;
-    int first_check = 1;
+    // bool clear = clearBlock(block, R, C);
     
-    
-    while (run == 1) {
-        if (broke > 0) {
-            broke -= 1;
-        }
+    while(true) {
+        bool clear = clearBlock(block, R, C);
+        bool fall = fallBlock(block, R, C);
         
-        if (first_check == 1) {
-            for (int i = R - 1; i >= 0; i--) {
-                for(int j = 0; j < C; j++) {
-                    if (a[i][j] == 1) {
-                        n_same += 1;
-                    }
-                }
-                if (n_same == C) {
-                    for (int z = 0; z < C; z++) {
-                        a[i][z] = 0;
-                    }
-                    gnd = i;
-                    n_same = 0;
-                    break;
-                } else {
-                    n_same = 0;
-                }
-            }
-        }
-        
-        for (int i = gnd - 1; i >= 0; i--) {
-            for (int j = 0; j < C; j++) {
-                if (a[i + 1][j] == 0) {
-                    a[i + 1][j] = a[i][j];
-                    a[i][j] = 0;
-                } 
-            }
-        }
-        
-        
-        for(int i = gnd; i >= 0; i--) {
-            for(int j = 0; j < C; j++) {
-                if (a[i][j] == 1) {
-                    n_same += 1;
-                }
-            }
-            if (n_same == C) {
-                for (int z = 0; z < C; z++) {
-                    a[i][z] = 0;
-                }
-                broke += 1;
-                n_same = 0;
-            } else {
-                n_same = 0;
-            }
-        }
-        
-        // std::cout<< "h";
-        
-        if (broke == 0) {
-            
-            break;
-        }
-        
-        
-        first_check = 0;
-    }
-    
-    //jatuh semua
-    while (run == 1) {
-        if (broke > 0) {
-            broke -= 1;
-        }
-        
-        for (int i = R - 1; i >= 0; i--) {
-            for (int j = 0; j < C; j++) {
-                if (i <= R - 2 && a[i + 1][j] == 0) {
-                    a[i + 1][j] = a[i][j];
-                    a[i][j] = 0;
-                }
-            }
-        }
-        
-        
-        for (int i = R - 1; i >= 0; i--) {
-            for (int j = 0; j < C; j++) {
-                if (a[i][j] == 1) {
-                    n_same += 1;
-                }
-            }
-            if (n_same == C) {
-                for (int z = 0; z < C; z++) {
-                    a[i][z] = 0;
-                }
-                n_same = 0;
-            } else {
-                n_same = 0;
-            }
-        }
-        
-        for (int i = R - 1; i >= 0; i--) {
-            for (int j = 0; j < C; j++) {
-                if (i > 0 && a[i][j] == 0 && a[i-1][j] == 1) {
-                    broke += 1;
-                    // std::cout<<"k";
-                    break;
-                }
-            }
-        }
-        
-        // std::cout << 'a';
-        
-        if (broke == 0) {
+        if (clear && fall) {
             break;
         }
     }
     
-    
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 3; j++) {
-            std::cout << a[i][j];
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            if (block[i][j] == 2) {
+                block[i][j] = 1;
+            }
         }
-        std::cout << std::endl;
     }
+    
+    // while(true) {
+    //     bool clear = clearBlock(block, R, C);
+    //     bool fall = fallBlock(block, R, C);
+        
+    //     if (clear && fall) {
+    //         break;
+    //     }
+    // }
+    
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            cout << block[i][j];
+        }
+        cout << endl;
+    }
+    
+    // cout << endl;
+        
+    // for (int i = 0; i < R; i++) {
+    //     for (int j = 0; j < C; j++) {
+    //         cout << blockCrash[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
 
     return 0;
 }
