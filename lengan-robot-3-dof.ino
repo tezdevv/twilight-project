@@ -1,3 +1,44 @@
+#include <Servo.h>
+
+Servo s1, s2;
+int vS = 0;
+
+skiri 40 s kanan 0
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(5, INPUT_PULLUP);
+  s1.attach(2);
+  s2.attach(3);
+}
+
+void loop() {
+  int btnP = digitalRead(4);
+  int btnM = digitalRead(5);
+
+  if (btnP == 0) {
+    vS += 1;
+  }
+
+  if (btnM == 0) {
+    vS -= 1;
+  }
+
+  if (vS > 180) {
+    vS = 180;
+  } else if (vS < 0) {
+    vS = 0;
+  }
+
+  Serial.println(vS);
+  s1.write(0);
+  s2.write(vS);
+
+  delay(100);
+}
+
+
 // #include <Servo.h>
 
 //perintah
@@ -240,6 +281,7 @@ void find_fk(float target_X, float target_Y, float target_Z, float L1, float L2,
   Serial.print(" obr : "); 
   Serial.println(ot); 
 }
+
 
 
 
